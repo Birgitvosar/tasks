@@ -22,12 +22,15 @@ function deleteTask(e){
 }
 
 function addTask(e) {
-    // input value
-    const task = taskInput.value;
+    //get form input data
+    const taskInput = document.querySelector('#task');
+    let task = taskInput.value;
     // create <li> element
     const li = document.createElement('li');
     //define <li> CSS class
     li.className = "collection-item";
+    //create text element
+    const text = document.createTextNode(task)
     // create text value to <li>
     li.appendChild(text);
     // create link element
@@ -45,8 +48,23 @@ function addTask(e) {
     const ul = document.querySelector('.collection');
     //add <li> to <ul>
     ul.appendChild(li);
+    //save task
+    addTaskToLocalStorage(task);
     //clear input value
     taskInput.value = '';
     //form submit event control
     e.preventDefault();
+}
+
+function addTaskToLocalStorage(task){
+    let tasks;
+    if(localStorage.getItem('tasks') === null){
+        tasks = [];
+    } else {
+        tasks = JSON.parse(localStorage.getItem('tasks'));
+    }
+    console.log(tasks);
+    tasks.push(task);
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    console.log(tasks);
 }
