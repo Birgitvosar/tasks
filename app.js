@@ -11,9 +11,18 @@ function deleteTasks(){
     while (tasksList.firstChild){
         tasksList.removeChild(tasksList.firstChild);
     }
+    deleteAllTaskFromLocalStorage();
 }
 
-function deleteTask(){
+function deleteAllTasksFromLocalStorage(){
+    if(localStorage.getItem('tasks') === null){
+        tasks = [];
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+    localStorage.removeItem('tasks');
+}
+
+function deleteTask(event){
     if(event.target.textContent){
         if(confirm("Do you want to delete this task?")){
             event.target.parentElement.remove();
