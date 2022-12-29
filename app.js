@@ -1,9 +1,17 @@
 const form = document.querySelector( 'form');
 const taskInput = document.querySelector('#task');
 const tasksList = document.querySelector( '.collection');
+const delTasksBtn = document.querySelector('#del-tasks');
 
 form.addEventListener('submit', addTask);
 tasksList.addEventListener('click', deleteTask);
+delTasksBtn.addEventListener('click', deleteTask);
+
+function deleteTasks(){
+    while (tasksList.firstChild){
+        tasksList.removeChild(tasksList.firstChild);
+    }
+}
 
 function deleteTask(e){
     if(e.target.textContent){
